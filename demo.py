@@ -4,6 +4,11 @@ import argparse
 import itertools
 
 import cv2 as cv
+import numpy as np
+
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
 
 
 class App:
@@ -15,7 +20,17 @@ class App:
         self.out = cv.VideoWriter('video/output.avi', fourcc, 30.0, (544, 960))
 
     def process(self, frame, frame_idx):
-        return frame
+        # bgr_ref = [134, 169, 55]
+        lab_ref = [159, 88, 137]
+        frame_lab = cv.cvtColor(frame, cv.COLOR_BGR2LAB)
+        print(frame_idx)
+
+        dist = np.linalg.norm(frame_lab[:, :, 1:] - lab_ref[1:], axis=2)
+        alpha = sigmoid((dist - 30) / 3.)
+        alpha = np.expand_dims(alpha, axis=-1)
+        vis = alpha * frame + (1.0 - alpha) * self.background
+
+        return vis.astype(np.uint8)
 
     def run(self):
         frame_idx = 0
