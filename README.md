@@ -13,3 +13,7 @@ $ python demo.py
 <pre>
 ffmpeg -i output.avi -i audio.mp3 -t 10 -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 output.mp4
 </pre>
+
+### DEMO
+
+![image](https://github.com/foamliu/Invisibility-Cloak/raw/master/images/demo.gif)

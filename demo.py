@@ -14,7 +14,7 @@ def sigmoid(x):
 class App:
     def __init__(self, video):
         self.cap = cv.VideoCapture(video)
-        self.background = cv.imread('video/background.png')
+        self.background = cv.imread('images/background.png')
 
         fourcc = cv.VideoWriter_fourcc(*'MPEG')
         self.out = cv.VideoWriter('video/output.avi', fourcc, 30.0, (544, 960))
